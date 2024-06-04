@@ -12,10 +12,9 @@ import { useSelector } from "react-redux";
 
 function App() {
     const navigate = useNavigate()
-    const isAuth = useSelector((state) => state.auth.isAuth);
-    console.log('рендер главный', isAuth, new Date())
-
-    
+    React.useEffect(()=>{
+        console.log('рендер главный', new Date())
+    })
     
     return (
         <>
