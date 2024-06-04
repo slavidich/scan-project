@@ -1,0 +1,16 @@
+@import './colors.scss';
+
+body{
+    color: $second-orange;
+    font-size: 20px
+}
+body a{
+    padding: 5px;
+}
+.header_link{
+    color:black
+
+}
+.active{
+    color: gray;
+}
