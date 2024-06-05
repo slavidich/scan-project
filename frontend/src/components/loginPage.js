@@ -22,8 +22,8 @@ function loginPage(){
                 localStorage.setItem('username', username);
                 localStorage.setItem('accessToken', accessToken);
                 localStorage.setItem('expire', expire);
-                handleLogin()
                 navigate('/')
+                handleLogin()
             }
         })
         .catch(e=>{
