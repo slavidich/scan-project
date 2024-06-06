@@ -3,6 +3,7 @@ import "../styles/app.scss";
 
 import Header from "./header"
 import Footer from "./footer"
+import MainPage from "./mainPage";
 import LoginPage from "./loginPage"
 import SearchPage from "./searchPage"
 import ModalTokenExpired from "./modalTokenExpired";
@@ -40,9 +41,9 @@ function App() {
         <>
         {showModal && <ModalTokenExpired/>}
         <Header/>
-        {isAuth && <button>Кнопка авторизированного пользователя</button>}
+        
         <Routes>
-            <Route path='/' element={<p>Главная страница</p>}></Route>
+            <Route path='/' element={<MainPage/>}></Route>
             <Route path="/search" element={<SearchPage />} />
             <Route path="/login" element={<LoginPage />} />
         </Routes>

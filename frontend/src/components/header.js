@@ -1,8 +1,9 @@
 import React from "react";
-import { NavLink  } from "react-router-dom";
+import { NavLink, useNavigate  } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 function header(){
+    const navigate = useNavigate()
     const isAuth = useSelector((state) => state.auth.isAuth);
     const dispatch = useDispatch()
     const handleLogout = ()=>{
@@ -10,12 +11,13 @@ function header(){
         localStorage.removeItem('username')
         localStorage.removeItem('accessToken')
         dispatch({type: 'LOGOUT'})
+        navigate('/')
     }
     return(<div className="header">
         <NavLink  to='/' className="header_link"  >Главная страница</NavLink >
         {isAuth?
             <>
-                <NavLink  to='/search' className="header_link" >Поиск</NavLink >
+                <NavLink to='/search' className="header_link" >Поиск</NavLink >
                 <p>Здравствуйте, {localStorage.getItem('username')}</p>
                 <button onClick={handleLogout} >Выйти</button>
             </>

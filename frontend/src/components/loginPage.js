@@ -19,14 +19,14 @@ function loginPage(){
         .then(resp=>{
             if (resp.status==200){
                 const { username, accessToken, expire} = resp.data
-                // для тестов 
+                // тест с expire
                 let t = new Date()
                 t.setSeconds(t.getSeconds()+5)
                 //
                 localStorage.setItem('username', username);
                 localStorage.setItem('accessToken', accessToken);
-                localStorage.setItem('expire', t);
-                console.log('Токен получен ', t)
+                localStorage.setItem('expire', expire);
+                console.log('Токен получен ', expire)
                 navigate('/')
                 handleLogin()
             }
