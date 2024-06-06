@@ -7,7 +7,7 @@ const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 server.use(bodyParser.json());
-server.use(cors()); // Применение cors
+server.use(cors()); // 
 
 // Обработка POST-запроса на /login
 server.post('/login', (req, res) => {

@@ -1,19 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function searchPage(){
     const isAuth = useSelector((state) => state.auth.isAuth);
+    const dispatch = useDispatch()
     const navigate = useNavigate()
-    React.useEffect(()=>{
-        console.log('search render', new Date())
-        if (!isAuth) {
-            navigate('/')
-        }
-    }, [isAuth])
-    return(<div>
+
+    return(<>{isAuth ? <div>
         <p>Страница поиска</p>
-    </div>)
+    </div>:<div>Эта страница больше Вам не доступна!</div>}</>)
 }
 
 export default searchPage

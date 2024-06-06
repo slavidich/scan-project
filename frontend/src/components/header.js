@@ -6,6 +6,9 @@ function header(){
     const isAuth = useSelector((state) => state.auth.isAuth);
     const dispatch = useDispatch()
     const handleLogout = ()=>{
+        localStorage.removeItem('expire')
+        localStorage.removeItem('username')
+        localStorage.removeItem('accessToken')
         dispatch({type: 'LOGOUT'})
     }
     return(<div className="header">

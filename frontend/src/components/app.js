@@ -17,24 +17,30 @@ function App() {
     const isAuth = useSelector((state)=>state.auth.isAuth)
     const dispath = useDispatch()
     const checkExpire = ()=>{   
-        dispath({type:'SHOW_MODAL'})
+        if (isAuth&&!showModal){
+            console.log('пользователь авторизирован')
+            if (new Date() > new Date(localStorage.getItem('expire'))){
+                console.log('Токен деактивирован!')
+                dispath({type:'SHOW_MODAL'})
+                localStorage.removeItem('accessToken')
+                dispath({type:'LOGOUT'})
+            }
+        }
     }
 
     React.useEffect(()=>{
-        if (isAuth){
-            checkExpire()
+        checkExpire()
+        if (showModal){
+            dispath({type:'HIDE_MODAL'})
+            localStorage.removeItem('expire')
         }
     }, [navigate])
-
-    React.useEffect(()=>{
-        
-    }, [isAuth])
     
     return (
         <>
         {showModal && <ModalTokenExpired/>}
         <Header/>
-        {isAuth && <p>Пользователь авторизирован</p>}
+        {isAuth && <button>Кнопка авторизированного пользователя</button>}
         <Routes>
             <Route path='/' element={<p>Главная страница</p>}></Route>
             <Route path="/search" element={<SearchPage />} />
