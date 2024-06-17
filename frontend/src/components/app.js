@@ -6,7 +6,6 @@ import Footer from "./footer"
 import MainPage from "./mainPage";
 import LoginPage from "./loginPage"
 import SearchPage from "./searchPage"
-import ModalTokenExpired from "./modalTokenExpired";
 
 import {Routes, Route, useNavigate, useLocation} from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
@@ -18,28 +17,22 @@ function App() {
     const isAuth = useSelector((state)=>state.auth.isAuth)
     const dispath = useDispatch()
     const checkExpire = ()=>{   
-        if (isAuth&&!showModal){
-            console.log('пользователь авторизирован')
+        if (isAuth){
             if (new Date() > new Date(localStorage.getItem('expire'))){
-                console.log('Токен деактивирован!')
-                dispath({type:'SHOW_MODAL'})
                 localStorage.removeItem('accessToken')
                 dispath({type:'LOGOUT'})
+                console.log('Пользователь деавторизован')
             }
         }
     }
 
     React.useEffect(()=>{
+        console.log('Произошел navigate в мейн', new Date())
         checkExpire()
-        if (showModal){
-            dispath({type:'HIDE_MODAL'})
-            localStorage.removeItem('expire')
-        }
     }, [navigate])
     
     return (
         <>
-        {showModal && <ModalTokenExpired/>}
         <Header/>
         
         <Routes>

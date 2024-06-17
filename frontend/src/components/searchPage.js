@@ -1,16 +1,20 @@
 import React, {useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import SearchResults from "./searchResults.jsx";
 
 function searchPage(){
+    const navigate = useNavigate()
     const isAuth = useSelector((state) => state.auth.isAuth);
-    const [searchResults, setSearchResults] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [searchGo, setsearchGo] = useState(null);
     const [formData, setFormData] = useState({
-        inn: '',
+        inn: '12 345 789 00',
         tone: 'Любая',
-        documentCount: '',
-        startDate: '',
-        endDate: '',
+        documentCount: '12',
+        startDate: '2024-04-27',
+        endDate: '2024-06-17',
         maxCompleteness: true,
         businessContext: true,
         mainRole: true,
@@ -35,7 +39,6 @@ function searchPage(){
     };
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        
         // Валидатор ИНН
         if (name === 'inn') {
             const regex = /^[0-9]*$/;
@@ -122,15 +125,22 @@ function searchPage(){
             })
         }
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form data:', formData);
-        //сюда все API уже 
-    };
+        if (!isFormValid()) {
+            return;
+        }
+        setsearchGo(true)
+    }
+    const closeResults = ()=>{
+        setsearchGo(false)
+    }
+    if (!isAuth){
+        navigate('/')
+    }
     return(<>
-    {isAuth ? 
-        searchResults?
-        (<div>Результаты поиска?</div>)
+    {searchGo?
+        (<SearchResults formData={formData} closeResults={closeResults}/>)
         :
         (<div>
             <form onSubmit={handleSubmit}>
@@ -267,11 +277,9 @@ function searchPage(){
                         Включать сводки новостей
                     </label>
                 </div>
-                <button type="submit" disabled={!isFormValid()}>Поиск</button>
+                <button type="submit" disabled={!isFormValid()|| loading}> {loading ? 'Загрузка...' : 'Поиск'}</button>
             </form>
-        </div>)
-    :
-        (<div>Error 403!</div>)}
+        </div>)}
         </>)
 }
 
