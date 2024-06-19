@@ -1,19 +1,18 @@
 import React, {useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 import axios from "axios";
 import SearchResults from "./searchResults.jsx";
 
 function searchPage(){
-    const navigate = useNavigate()
     const isAuth = useSelector((state) => state.auth.isAuth);
-    const [loading, setLoading] = useState(false);
     const [searchGo, setsearchGo] = useState(null);
     const [formData, setFormData] = useState({
-        inn: '12 345 789 00',
-        tone: 'Любая',
-        documentCount: '12',
-        startDate: '2024-04-27',
+        inn: '77 070 838 93',
+        tone: 'any',
+        documentCount: '500',
+        startDate: '2023-05-17',
         endDate: '2024-06-17',
         maxCompleteness: true,
         businessContext: true,
@@ -136,7 +135,7 @@ function searchPage(){
         setsearchGo(false)
     }
     if (!isAuth){
-        navigate('/')
+        return <Navigate to="/" />
     }
     return(<>
     {searchGo?
@@ -164,10 +163,10 @@ function searchPage(){
                         onChange={handleChange}
                         multiple={false}
                     >
-                        <option value="Любая">Любая</option>
-                        <option value="Позитивная">Позитивная</option>
-                        <option value="Нейтральная">Нейтральная</option>
-                        <option value="Негативная">Негативная</option>
+                        <option value="any">Любая</option>
+                        <option value="positive">Позитивная</option>
+                        <option value="neutral">Нейтральная</option>
+                        <option value="negative">Негативная</option>
                     </select>
                 </div>
                 <div>
@@ -277,7 +276,7 @@ function searchPage(){
                         Включать сводки новостей
                     </label>
                 </div>
-                <button type="submit" disabled={!isFormValid()|| loading}> {loading ? 'Загрузка...' : 'Поиск'}</button>
+                <button type="submit" disabled={!isFormValid()}> Поиск</button>
             </form>
         </div>)}
         </>)

@@ -27,7 +27,6 @@ function App() {
     }
 
     React.useEffect(()=>{
-        console.log('Произошел navigate в мейн', new Date())
         checkExpire()
     }, [navigate])
     

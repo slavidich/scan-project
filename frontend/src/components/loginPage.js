@@ -7,18 +7,20 @@ function loginPage(){
     const navigate = useNavigate()
     const isAuth = useSelector((state) => state.auth.isAuth);
     const dispatch = useDispatch()
-    const [username, setUsername] = useState('usertest');
-    const [password, setPassword] = useState('123ewqytr');
-
+    const [username, setUsername] = useState('sf_student5');
+    const [password, setPassword] = useState('LuwAwJf');
+    
     const handleLogin = ()=>{
         dispatch({type:'LOGIN_SUCCESS'})
     }
     const handleSubmit=(e)=>{
         e.preventDefault();
-        axios.post('http://localhost:3000/login', {username, password})
+        axios.post('https://gateway.scan-interfax.ru/api/v1/account/login', {
+            login: username, 
+            password: password})
         .then(resp=>{
             if (resp.status==200){
-                const { username, accessToken, expire} = resp.data
+                const { accessToken, expire} = resp.data
                 // тест с expire
                 let t = new Date()
                 t.setSeconds(t.getSeconds()+5)

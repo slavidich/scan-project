@@ -39,7 +39,7 @@ server.post('/objectsearch/histograms', (req, res) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const filteredDates = router.db.get('dates').filter(item => {
-    const date = new Date(item.date.split('.').reverse().join('-'));
+    const date = new Date(item.date);
     return date > start && date < end;
   });
   const allCount = filteredDates.reduce((sum, item) => sum + item.count, 0);
