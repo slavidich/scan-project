@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/app.scss";
 
-import Header from "./header"
+import Header from "./header.jsx"
 import Footer from "./footer"
 import MainPage from "./mainPage";
 import LoginPage from "./loginPage"

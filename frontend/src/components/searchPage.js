@@ -9,17 +9,17 @@ function searchPage(){
     const isAuth = useSelector((state) => state.auth.isAuth);
     const [searchGo, setsearchGo] = useState(null);
     const [formData, setFormData] = useState({
-        inn: '77 070 838 93',
+        inn: '86 020 605 55',
         tone: 'any',
         documentCount: '500',
-        startDate: '2023-05-17',
+        startDate: '2024-05-17',
         endDate: '2024-06-17',
         maxCompleteness: true,
         businessContext: true,
         mainRole: true,
-        riskFactors: false,
+        riskFactors: true,
         technicalNews: false,
-        announcements: true,
+        announcements: false,
         newsSummary: false,
     });
     const [errors, setErrors] = useState({
