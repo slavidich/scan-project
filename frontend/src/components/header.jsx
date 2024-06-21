@@ -16,7 +16,7 @@ function header(){
         localStorage.removeItem('username')
         localStorage.removeItem('accessToken')
         dispatch({type: 'LOGOUT'})
-        navigate('/')
+        
     }
     React.useEffect(()=>{
         if (isAuth){
@@ -42,41 +42,41 @@ function header(){
         }
     },[isAuth])
     return(
-    <header className="header-container">
-        <div className="logo"><img src={logo} alt="logo"/></div>
-        <div className="nav">
-            <NavLink  to='/' className="nav-item"  >Главная</NavLink >
-            <a href="#" className="nav-item">Главная</a>
-            <a href="#" className="nav-item">Главная</a>
+    <header className="header">
+        <div className="header__logo"><img src={logo} alt="logo"/></div>
+        <div className="header__nav">
+            <NavLink  to='/' className="header__nav__item"  >Главная</NavLink >
+            <a href="#" className="header__nav__item">Тарифы</a>
+            <a href="#" className="header__nav__item">FAQ</a>
         </div>
         
         {isAuth?
             <>
-            <div className="userdiv">
-                <div className="user-balance">
+            <div className="header__user">
+                <div className="header__user__balance">
                     {balanceIsLoading?<p>Загрузка баланса...</p>:
-                        <><div className="balance-text">
+                        <><div className="header__user__balance__text">
                             <p>Использовано компаний</p>
                             <p>Лимит по компаниям</p>
                         </div>
-                        <div className="balance-count">
+                        <div className="header__user__balance__count">
                             <p>{balance.usedCompanyCount}</p>
                             <p>{balance.companyLimit}</p>
                         </div></> }
                 </div>
-                <div className="user-profile">
+                <div className="header__user__profile">
                     <p>Алексей А.</p>
-                    <a className="logout" href="" onClick={handleLogout}>Выйти</a>
+                    <a className="header__user__profile__logout" href="#" onClick={handleLogout}>Выйти</a>
                 </div>
             </div>
                 
                 
             </>
         :
-            <div className="auth-container">
-                <a className="registration" href="#">Зарегистрироваться</a>
-                <span class="delimiter"></span>
-                <NavLink  to='/login' className="loginButton " >Войти</NavLink >
+            <div className="header__auth">
+                <a className="header__auth__reg" href="#">Зарегистрироваться</a>
+                <span class="header__auth__delimiter"></span>
+                <NavLink  to='/login' className="header__auth__login " >Войти</NavLink >
             </div>}
     </header>)
 }
