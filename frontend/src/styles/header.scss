@@ -11,8 +11,8 @@
     font-size:14px;
     
 }
-.header__user, .header__logo{
-    width:35%;
+.header__user, .header__logo, .header__auth{
+    width:40%;
     height:100%;
 }
 .header a{
@@ -25,14 +25,14 @@
     height:100%;
 }
 .header__logo img{
-    margin-left:5%;
+    margin-left:10%;
     width: 141px;
     height: 100%;
     object-fit: cover;
 }
 
 .header__nav{
-    width:30%;
+    width:20%;
     display:flex;
     align-items: center;
     justify-content: center;
@@ -40,22 +40,16 @@
 .header__nav__item{
     margin: 0 5%;
 }
-.header__user{
+
+
+.header__auth{
     display: flex;
     align-items: center;
     justify-content: flex-end;
-}
-.header__user__temp{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right:6%;
-    width:100%;
 }
 .header__auth__reg{
     color: $third-gray !important;
     margin: 0 3% 0 0;
-
 }
 .header__auth__svg{
     width:4px;
@@ -67,21 +61,32 @@
     height:31px;
     fill: $main-green;
 }
+.header__user__profile, .header__auth__login{
+    margin-right:10%;
+}
 .header__auth__login{
-    margin:0 0% 0 3% ;
+    margin-left: 3% ;
     border-radius:5px;
     padding: 7px 12px;
     background-color: $second-green;
 }
+.header__user{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .header__user__balance{
+    margin-left:5%;
     display:flex;
     justify-content: center;
     width:200px;
-    height: 63px;
+    min-width: 200px;
+    height: 70px;
     background-color: #d9d9d96b;
-    border-radius: 5px;
-    margin-right:20%;
+    border-radius: 5px;   
 }
+
 
 .header__user__balance__text{
     display:flex;
@@ -97,7 +102,7 @@
     margin: 1px;
 }
 .header__user__balance__text span{
-    min-width: 25px;
+    min-width: 22px;
     margin: 0 0 0 8px;
     color:$main-black;
     font-size:20px;
@@ -107,3 +112,4 @@
 .header__user__balance__text p:last-child span{
     color: #8AC540;
 }
+

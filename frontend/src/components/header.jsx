@@ -51,33 +51,31 @@ function header(){
         </div>
         
         
-        <div className="header__user">
-            <div className="header__user__temp">
-                {isAuth?
-                    <>
-                    <div className="header__user__balance">
-                        {balanceIsLoading?<p>Загрузка баланса...</p>:
-                            <><div className="header__user__balance__text">
-                                <p>Использовано компаний <span>{balance.usedCompanyCount}</span></p>
-                                <p>Лимит по компаниям <span>{balance.companyLimit}</span></p>
-                            </div>
-                            
-                            </> }
-                    </div>
-                    <div className="header__user__profile">
-                        <p>Алексей А.</p>
-                        <a className="header__user__profile__logout" href="#" onClick={handleLogout}>Выйти</a>
-                    </div>
-                    </>
-                :
-                    <>
-                    <a className="header__auth__reg" href="#">Зарегистрироваться</a>
-                    <svg class="header__auth__svg"><rect></rect></svg>
-                    <NavLink  to='/login' className="header__auth__login " >Войти</NavLink >
-                    </>
-                }
-             </div>
-        </div>
+        
+        {isAuth?
+            <div className="header__user">
+                <div className="header__user__balance">
+                    {balanceIsLoading?<p>Загрузка баланса...</p>:
+                        <>
+                        <div className="header__user__balance__text">
+                            <p>Использовано компаний <span>{balance.usedCompanyCount}</span></p>
+                            <p>Лимит по компаниям <span>{balance.companyLimit}</span></p>
+                        </div>
+                        </> }
+                </div>
+                <div className="header__user__profile">
+                    <p>Алексей А.</p>
+                    <a className="header__user__profile__logout" href="#" onClick={handleLogout}>Выйти</a>
+                </div>
+            </div>
+            :
+            <div className="header__auth">
+                <a className="header__auth__reg" href="#">Зарегистрироваться</a>
+                <svg class="header__auth__svg"><rect></rect></svg>
+                <NavLink  to='/login' className="header__auth__login " >Войти</NavLink >
+            </div>
+            }
+        
                 
                 
            
