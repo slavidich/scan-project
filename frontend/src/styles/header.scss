@@ -11,13 +11,15 @@
     font-size:14px;
     
 }
-.header__auth, .header__user, .header__logo{
+.header__user, .header__logo{
     width:35%;
+    height:100%;
 }
 .header a{
     text-decoration: none;
     color: $main-black;
 }
+
 .header__logo{
     overflow: hidden;
     height:100%;
@@ -28,6 +30,7 @@
     height: 100%;
     object-fit: cover;
 }
+
 .header__nav{
     width:30%;
     display:flex;
@@ -37,12 +40,70 @@
 .header__nav__item{
     margin: 0 5%;
 }
-
-.header__auth{
+.header__user{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.header__user__temp{
     display: flex;
     justify-content: flex-end;
-    margin-right: 2%;
+    align-items: center;
+    margin-right:6%;
+    width:100%;
 }
 .header__auth__reg{
+    color: $third-gray !important;
+    margin: 0 3% 0 0;
+
+}
+.header__auth__svg{
+    width:4px;
+    height:31px;
+    border-radius: 2px;
+}
+.header__auth__svg rect{
+    width:4px;
+    height:31px;
+    fill: $main-green;
+}
+.header__auth__login{
+    margin:0 0% 0 3% ;
+    border-radius:5px;
+    padding: 7px 12px;
+    background-color: $second-green;
+}
+.header__user__balance{
+    display:flex;
+    justify-content: center;
+    width:200px;
+    height: 63px;
+    background-color: #d9d9d96b;
+    border-radius: 5px;
+    margin-right:20%;
+}
+
+.header__user__balance__text{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 12px;
     color: $third-gray;
+}
+.header__user__balance__text p {
+    display:flex;
+    align-items: center;
+    margin: 1px;
+}
+.header__user__balance__text span{
+    min-width: 25px;
+    margin: 0 0 0 8px;
+    color:$main-black;
+    font-size:20px;
+    font-weight: 700;
+    text-align: left;
+}
+.header__user__balance__text p:last-child span{
+    color: #8AC540;
 }
