@@ -2,11 +2,22 @@ import React from "react";
 import { NavLink, useNavigate  } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import DropDownMenu from "./dropdownmenu.jsx"
 import "../styles/header.scss"
 import logo from '../img/logo.png';
+import avatar from '../img/avatar.png'
+import loading from '../img/loading.png'
+
+
+const MenuButton = ({ onClick }) => (
+    <button className="menu-button" onClick={onClick}>
+      ☰
+    </button>
+);
+
 
 function header(){
-    const navigate = useNavigate()
+    const [isMenuOpen, setMenuOpen] = React.useState(false);
     const isAuth = useSelector((state) => state.auth.isAuth);
     const [balanceIsLoading, setBalanceIsLoading] = React.useState(false)
     const [balance, setBalance] = React.useState({})
@@ -18,6 +29,9 @@ function header(){
         dispatch({type: 'LOGOUT'})
         
     }
+    const toggleMenu = () => {
+        setMenuOpen(!isMenuOpen);
+    };
     React.useEffect(()=>{
         if (isAuth){
             setBalanceIsLoading(true)
@@ -41,7 +55,7 @@ function header(){
             
         }
     },[isAuth])
-    return(
+    return(<>
     <header className="header">
         <div className="header__logo"><img src={logo} alt="logo"/></div>
         <div className="header__nav">
@@ -55,7 +69,7 @@ function header(){
         {isAuth?
             <div className="header__user">
                 <div className="header__user__balance">
-                    {balanceIsLoading?<p>Загрузка баланса...</p>:
+                    {balanceIsLoading?<div className="header__user__balance__loading"><img src={loading}></img></div>:
                         <>
                         <div className="header__user__balance__text">
                             <p>Использовано компаний <span>{balance.usedCompanyCount}</span></p>
@@ -64,8 +78,11 @@ function header(){
                         </> }
                 </div>
                 <div className="header__user__profile">
-                    <p>Алексей А.</p>
-                    <a className="header__user__profile__logout" href="#" onClick={handleLogout}>Выйти</a>
+                    <div className="header__user__profile__info">
+                        <p>Алексей А.</p>
+                        <a className="header__user__profile__logout" href="#" onClick={handleLogout}>Выйти</a>
+                    </div>
+                    <img src={avatar}></img>
                 </div>
             </div>
             :
@@ -73,13 +90,11 @@ function header(){
                 <a className="header__auth__reg" href="#">Зарегистрироваться</a>
                 <svg class="header__auth__svg"><rect></rect></svg>
                 <NavLink  to='/login' className="header__auth__login " >Войти</NavLink >
-            </div>
-            }
-        
-                
-                
-           
-    </header>)
+            </div>}
+        <MenuButton onClick={toggleMenu} />  
+    </header>
+    <DropDownMenu isOpen={isMenuOpen} onClose={toggleMenu}/></>
+    )
 }
 
 export default header
