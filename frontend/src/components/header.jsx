@@ -93,7 +93,7 @@ function header(){
             </div>}
         <MenuButton onClick={toggleMenu} />  
     </header>
-    <DropDownMenu isOpen={isMenuOpen} onClose={toggleMenu}/></>
+    <DropDownMenu isOpen={isMenuOpen} onClose={toggleMenu} logout={handleLogout}/></>
     )
 }
 

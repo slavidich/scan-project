@@ -1,5 +1,5 @@
 @import './colors.scss';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
 
 .header {
     display: flex;
@@ -23,8 +23,11 @@
 .header__logo{
     overflow: hidden;
     height:100%;
+    min-width:133px;
+    
 }
 .header__logo img{
+    
     margin-left:10%;
     width: 141px;
     height: 100%;

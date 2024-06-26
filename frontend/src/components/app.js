@@ -33,12 +33,14 @@ function App() {
     return (
         <>
         <Header/>
+        <div className="main">
+            <Routes>
+                <Route path='/' element={<MainPage/>}></Route>
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/login" element={<LoginPage />} />
+            </Routes>
+        </div>
         
-        <Routes>
-            <Route path='/' element={<MainPage/>}></Route>
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/login" element={<LoginPage />} />
-        </Routes>
         <Footer/>
         </>
     );

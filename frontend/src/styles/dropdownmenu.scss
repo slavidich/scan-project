@@ -1,5 +1,5 @@
 @import './colors.scss';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
 
 .dropdown-menu {
     position: fixed;
@@ -7,11 +7,44 @@
     top: 0;
     right: 0;
     padding: 0;
-
+    z-index: 1;
     width: 100%;
     height:100%;
     background-color: $main-green;
+    display:flex;
+    flex-direction: column;
     color: #fff;
-    padding: 20px;
-    
+}
+
+.close-button{
+    font-size: 25px;
+    margin: 2.5% 1% 2% 25%;
+    color:$main-white !important;
+}
+.dropdown-menu__main__links{
+    font-family: Inter;
+    display:flex;
+    flex-direction: column;
+    margin-top:10%;
+}
+.dropdown-menu__main__links a {
+    font-size:22px;
+    margin: 10px 0 20px 0;
+    text-align: center;
+    text-decoration: none;
+    color: $main-white;
+}
+
+.dropdown-menu__main__links__reg{
+    color:$third-green !important;
+    font-size:16px !important; 
+}
+.dropdown-menu__main__links__login{
+    color:black !important;
+    background-color: $second-green;
+    padding: 10px 0 10px 0;
+
+    margin-right: 15% !important;
+    margin-left: 15% !important;
+    border-radius: 10px;
 }
