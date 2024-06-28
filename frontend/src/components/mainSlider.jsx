@@ -8,8 +8,10 @@ import "../styles/mainSlider.scss"
 function CustomSlide(props){
     const {item, ...otherProps } = props
     return (
-        <div {...otherProps}>
-            <p>{item}</p>
+        <div {...otherProps} className="slider-element">
+            <div className="slider-element__in">
+                <p>{item}</p>
+            </div>
         </div>
     )
 }
@@ -35,14 +37,14 @@ function mainSlider(){
         slidesToShow: 3,
         swipeToSlide: true,
         arrows: true,
-        autoplay: true,
+        autoplay: false,
         nextArrow: <SampleArrow img={btnprev}/>,
         prevArrow: <SampleArrow img={btnprev} rotate={true}/>,
     };
     return (
     <div className="slider-container">
         <Slider {...settings}>
-            {items.map((item, index)=><CustomSlide key={index} item={item} className="slider-element"/>)}
+            {items.map((item, index)=><CustomSlide key={index} item={item} />)}
         </Slider>
     </div>)
 }

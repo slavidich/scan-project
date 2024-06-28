@@ -6,13 +6,24 @@
     margin: 0 10% 0 10%;
 }
 .slider-element{
-    width:400px;
-    height: 225px;
+    width:300px;
+    height: 245px;
     display: flex !important;;
     justify-content: center;
     align-items: center;
-    background-color: aqua;
+    
     border-radius: 10px;
 }
-
-.slick-slide > div { padding: 0 25px; } 
+.slider-element__in{
+    
+    width:90%;
+    height: 90%;
+    border-radius: 10px;
+    
+    display: flex !important;;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.35)
+    
+}
+.slick-slide > div { padding: 0 2px; } 
