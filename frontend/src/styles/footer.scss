@@ -4,3 +4,28 @@
     height:137px;
     background-color: $main-green;
 }
+.footer__text{
+    display: flex;
+    flex-direction: column;
+    margin-right: 3.5%;
+}
+.footer__text p{
+    color:$main-white;
+    margin:0;
+    text-align: right;
+}
+@media (max-width: 680px) {
+    .footer__logo{
+        overflow: auto;
+    }
+    .footer__logo img{
+        width:120px;
+        height:120px;
+        position: absolute; 
+        bottom:4%;
+    }
+    .footer__logo {
+        display:flex;
+        justify-content: flex-start;
+    }
+}

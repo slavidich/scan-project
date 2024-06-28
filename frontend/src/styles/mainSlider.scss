@@ -1,0 +1,18 @@
+@import './colors.scss';
+
+.slider-container{
+    display: flex;
+    flex-direction: column;
+    margin: 0 10% 0 10%;
+}
+.slider-element{
+    width:400px;
+    height: 225px;
+    display: flex !important;;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    border-radius: 10px;
+}
+
+.slick-slide > div { padding: 0 25px; } 

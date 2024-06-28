@@ -88,7 +88,7 @@ function header(){
             :
             <div className="header__auth">
                 <a className="header__auth__reg" href="#">Зарегистрироваться</a>
-                <svg class="header__auth__svg"><rect></rect></svg>
+                <svg className="header__auth__svg"><rect></rect></svg>
                 <NavLink  to='/login' className="header__auth__login " >Войти</NavLink >
             </div>}
         <MenuButton onClick={toggleMenu} />  
