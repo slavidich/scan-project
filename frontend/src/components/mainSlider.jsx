@@ -4,13 +4,15 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import btnprev from '../img/button_prev.png'
 import "../styles/mainSlider.scss"
+import {Svg1, Svg2}  from "../img/slick-svg.jsx"
 
 function CustomSlide(props){
     const {item, ...otherProps } = props
     return (
         <div {...otherProps} className="slider-element">
             <div className="slider-element__in">
-                <p>{item}</p>
+                <item.svg/>
+                <p>{item.text}</p>
             </div>
         </div>
     )
@@ -30,7 +32,16 @@ function SampleArrow(props) {
 
 
 function mainSlider(){
-    const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8'];
+    const items = [
+        { text: "Item 1", svg: Svg1 },
+        { text: "Item 2", svg: Svg1 },
+        { text: "Item 3", svg: Svg1 },
+        { text: "Item 4", svg: Svg1 },
+        { text: "Item 5", svg: Svg1 },
+        { text: "Item 6", svg: Svg1 },
+        { text: "Item 7", svg: Svg1 },
+        { text: "Item 8", svg: Svg1 }
+    ];
     const settings = {
         className: "center",
         infinite: true,
