@@ -9,7 +9,7 @@
     height: 93px;
     font-family: Inter;
     font-size:14px;
-    
+    margin:0 $right-margin 0 $left-margin
 }
 .header__user, .header__logo, .header__auth{
     width:40%;
@@ -28,7 +28,7 @@
 }
 .header__logo img{
     
-    margin-left:10%;
+   
     width: 141px;
     height: 100%;
     object-fit: cover;
@@ -64,8 +64,8 @@
     height:31px;
     fill: $main-green;
 }
-.header__user__profile, .header__auth__login{
-    margin-right:10%;
+ .header__auth__login{
+    
 }
 .header__auth__login{
     margin-left: 3% ;
@@ -80,7 +80,7 @@
 }
 
 .header__user__balance{
-    margin-left:5%;
+    margin-left:10%;
     display:flex;
     justify-content: center;
     width:200px;
@@ -151,6 +151,9 @@
     display:none;
 }
 @media  (max-width: 1024px){
+    .header__user__profile img{
+        display:none;
+    }
     .header__nav__item {
         font-size: 12px;
     }
@@ -173,12 +176,13 @@
         font-size: 14px;
         align-self: flex-start;
     }
+    .header__user__profile p, .header__user__profile a{
+        font-size:12px;
+    }
 }
 
 @media (min-width: 680px) and (max-width: 768px) {
-    .header__user__profile img{
-        display:none;
-    }
+
 }
 @media (max-width: 680px) {
     .header__nav, .header__user__profile{
@@ -198,5 +202,19 @@
         cursor: pointer;
         display: block; 
         color: $main-green
+    }
+}
+//MARGIN 
+@media (max-width: 1200px) and (min-width: 600px) {
+    .header {
+        margin-left: $left-margin-medium;
+        margin-right: $right-margin-medium;
+    }
+}
+  
+  @media (max-width: 599px) {
+    .header {
+        margin-left: $left-margin-small;
+        margin-right: $right-margin-small;
     }
 }

@@ -1,0 +1,287 @@
+@import './colors.scss';
+
+.main__tarifs__beforetext{
+    min-width: 350px !important;
+}
+.main__tarifs{
+    display:flex;
+    justify-content: space-between;
+    margin: 0 $right-margin 35px $left-margin;
+}
+.main__tarifs__tarif{
+    display:flex;
+    flex-direction: column;
+    height: 540px;
+    max-width: 415px;
+    min-width: 335px;
+    width:32%;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.main__tarifs__tarif__header{
+    display:flex;
+    justify-content: space-between;
+    height: 132px;
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+}
+.main__tarifs__tarif__header div{
+    width: 250px;
+}
+.main__tarifs__tarif__header svg{
+    margin-top:5%;
+    margin-right:5px;
+    
+}
+
+.main__tarifs__tarif__header h3{
+    margin-left: 6%; 
+    margin-bottom:0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: 0.01em;
+}
+.main__tarifs__tarif__header p{
+    margin-left: 6%; 
+    margin-top:10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.01em;
+    white-space: nowrap
+}
+.main__tarifs__tarif__div{
+    display:flex;
+    flex-direction: column;
+    height: 408px;
+    margin-left:6%;
+    margin-right:3%
+}
+.main__tarifs__tarif__div__current{
+    display:flex;
+    justify-content: right;
+    align-items: center;
+    height:35px;
+}
+.main__tarifs__tarif__div__current>div{
+    background: #3BA5E0;
+    border-radius: 10px;
+    height: 25px;
+    width:135px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-right:-4px;
+}
+.main__tarifs__tarif__div__current>div>p
+{
+    margin:0;
+    white-space: nowrap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+.main__tarifs__tarif__div__prices{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+.main__tarifs__tarif__div__prices p{
+    margin:0
+}
+.main__tarifs__tarif__div>p{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.01em;
+    height:44px;
+}
+.main__tarifs__tarif__div__prices p:first-child{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: 0.01em;
+}
+.main__tarifs__tarif__div__prices p:last-child{
+    margin-left:15px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 30px;
+    letter-spacing: 0.01em;
+    text-decoration-line: line-through;
+    opacity: 0.5;
+}
+.main__tarifs__tarif__div__includes{
+    font-family: 'Inter';
+}
+.main__tarifs__tarif__div__includes>p
+{
+    margin-top:0px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+}
+.main__tarifs__tarif__div__includes>div{
+    display:flex;
+    flex-direction: row;
+    margin-top:8px;
+    margin-bottom:5px;
+    align-items: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.01em;
+}
+.main__tarifs__tarif__div__includes>div>p{
+
+    margin:0
+}
+.main__tarifs__tarif__div__includes>div>img{
+    height: 20px;
+    height: 20px;
+    margin-right:5px;
+}
+.main__tarifs__tarif__div__button{
+
+    justify-self: end;
+    margin-top:auto;
+    margin-right:4%;
+    margin-bottom: 15px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 59px;
+    
+    background-color: $second-blue;
+    border-radius:10px
+}
+.main__tarifs__tarif__div__button>a{
+    font-size:20px;
+    font-family: 'Inter';
+    text-decoration:none;
+    color:$main-white
+}
+.tarif1{
+    border: 2px solid #FFB64F;
+}
+.tarif1__header{
+    background: #FFB64F;
+    border-radius: 6px 6px 0px 0px;
+}
+.tarif1__div>.main__tarifs__tarif__div__button{
+    background-color: #D2D2D2;
+}
+.tarif1__div>.main__tarifs__tarif__div__button>a{
+    color:$main-black
+}
+.tarif2{
+
+}
+.tarif2__header{
+    border-radius: 6px 6px 0px 0px;
+    background: $second-green;
+}
+.tarif2__header svg{
+    transform: rotate(-5deg);
+    margin:0;
+}
+
+.tarif3 .main__tarifs__tarif__div__prices{
+    margin-bottom:80px;
+}
+.tarif3__header{
+    border-radius: 6px 6px 0px 0px;
+    background: $main-black;
+}
+.tarif3__header h3, .tarif3__header p{
+    color: $main-white
+}
+.tarif2, .tarif3{
+    margin-top:2px;
+    //border: solid 1px rgba(0,0,0,0.1)
+}
+@media ((max-width: 1370px)  and (min-width:1200px)) or ((max-width: 890px) and (min-width: 720px)) or (max-width: 520px){
+    .main__tarifs__tarif__header svg{
+        height: 50px;
+    }
+    .main__tarifs__tarif{
+        min-width: 335px !important;
+    }
+    .tarif2__header svg{
+        transform: rotate(-5deg);
+        margin:10px 0 0 0 ;
+        height:75px;
+    }
+    .main__tarifs__tarif__div__includes>p{
+        font-size:18px;
+    }
+    .main__tarifs__tarif__div__includes>div>p{
+        font-size:15px;
+    }
+}
+@media (max-width: 1200px) and (min-width:680px) {
+    .main__tarifs{
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        row-gap:25px;
+        column-gap:25px;
+        justify-content: center;
+    }
+    .main__tarifs__tarif{
+        justify-self: center;
+        min-width: 415px;
+    }
+    .main__tarifs__tarif:nth-child(3) {
+        grid-column: 1 / -1;
+        justify-self: center;
+    }
+}
+@media(max-width:720px) and (min-width:520px){
+    .main__tarifs__tarif{
+        min-width: 415px !important;
+    }
+}
+@media (max-width:720px){
+    .main__tarifs{
+        display:grid;
+        grid-template-columns: 1fr;
+        gap:25px;
+    }
+    .main__tarifs__tarif{
+        
+        justify-self: center;
+    }
+}
+
+//MARGIN 
+@media (max-width: 1200px) and (min-width: 600px) {
+    .main__tarifs {
+        margin-left: $left-margin-medium;
+        margin-right: $right-margin-medium;
+    }
+}
+  
+  @media (max-width: 599px) {
+    .main__tarifs {
+        margin-left: $left-margin-small;
+        margin-right: $right-margin-small;
+    }
+}

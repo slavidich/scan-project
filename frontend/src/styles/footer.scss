@@ -1,13 +1,17 @@
 @import './colors.scss';
 
 .footer{
+    margin:0;
     height:137px;
     background-color: $main-green;
+}
+.footer__logo{
+    margin-left:$left-margin
 }
 .footer__text{
     display: flex;
     flex-direction: column;
-    margin-right: 3.5%;
+    margin-right:$right-margin
 }
 .footer__text p{
     color:$main-white;
@@ -19,13 +23,30 @@
         overflow: auto;
     }
     .footer__logo img{
-        width:120px;
-        height:120px;
-        position: absolute; 
-        bottom:4%;
+        
     }
     .footer__logo {
         display:flex;
         justify-content: flex-start;
+    }
+}
+//MARGIN 
+@media (max-width: 1200px) and (min-width: 600px) {
+    .footer__logo {
+        margin-left: $left-margin-medium;
+        
+    }
+    .footer__text{
+        margin-right: $right-margin-medium;
+    }
+}
+  
+  @media (max-width: 599px) {
+    .footer__logo {
+        margin-left: $left-margin-small;
+        
+    }
+    .footer__text{
+        margin-right: $right-margin-small;
     }
 }

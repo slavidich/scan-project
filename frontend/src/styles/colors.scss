@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import "../fonts/FerryBlack/stylesheet.css";
 
 $main-green: #029491;
 $main-black: #000000;
@@ -9,4 +10,14 @@ $second-green: #7CE3E1;
 $second-blue: #5970FF;
 
 $third-gray: #666;
-$third-green: rgb(103, 191, 189)
+$third-green: rgb(103, 191, 189);
+
+$left-margin:6%;
+$right-margin: 6%;
+
+$left-margin-large: 7%;
+$right-margin-large: 7%;
+$left-margin-medium: 4%;
+$right-margin-medium: 4%;
+$left-margin-small: 2%;
+$right-margin-small: 2%;

@@ -3,7 +3,7 @@
 .slider-container{
     display: flex;
     flex-direction: column;
-    margin: 0 5% 0 5%;
+    margin: 0 7% 0 7%;
 }
 .slider-element{
     height: 250px;
@@ -13,16 +13,87 @@
     
     border-radius: 10px;
 }
-.slider-element__in{
-    
-    width:90%;
-    height: 90%;
-    border-radius: 10px;
-    
-    display: flex !important;;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.35)
+.slider-container .slick-prev{
+    height:35px;
+    width: 35px;
+    opacity: 0.4;
+}
+.slider-container .slick-next{
+    height:35px;
+    width: 35px;
+    opacity: 0.4;
     
 }
-.slick-slide > div { padding: 0 2px; } 
+.slider-container .slick-slider{
+    display: flex;
+    justify-content: center;
+}
+.slider-container .slick-slider .slick-list{
+    justify-content: center;
+    width:98%
+}
+.slider-element__in{
+    width:96%;
+    height: 90%;
+    border-radius: 10px;
+    display: flex !important;;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.35)
+}
+.slider-element__in p {
+    margin:2% 2% 0 5%;
+    font-family: Inter;
+    font-size:18px;
+    text-align:left;
+}
+.slick-slide > div { padding: 0 0px; } 
+.slider-element__in__svg{
+    width: 100%;
+    height: 45%; /* Устанавливаем фиксированную высоту для контейнера SVG */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.slider-element__in__svg>svg{
+    margin-top:1%;
+    margin-left:6%
+}
+@media  (max-width: 1024px){
+    .slider-element__in p {
+        font-size:14px;
+    }
+}
+
+@media (min-width: 680px) and (max-width: 768px) {
+    .slider-element__in p {
+        font-size:18px;
+    }
+    .slider-element__in{
+        width:95%;
+    }
+}
+@media (max-width: 680px) {
+    .slider-element__in__svg>svg{
+        margin-top:3%;
+        margin-left:3%
+    }
+
+    .slider-element__in p {
+        font-size:18px;
+    }
+    .slider-container .slick-prev{
+        left:-25px
+    }
+    .slider-container .slick-next{
+        right:-25px
+    }
+    .slider-container{
+        margin: 0 7% 0 7%;
+    }
+    .slider-element{
+        height: 210px;
+        
+    }
+}

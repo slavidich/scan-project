@@ -4,14 +4,16 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import btnprev from '../img/button_prev.png'
 import "../styles/mainSlider.scss"
-import {Svg1, Svg2}  from "../img/slick-svg.jsx"
+import {Svg1, Svg2, Svg3}  from "../img/slick-svg.jsx"
 
 function CustomSlide(props){
     const {item, ...otherProps } = props
     return (
         <div {...otherProps} className="slider-element">
             <div className="slider-element__in">
-                <item.svg/>
+                <div className="slider-element__in__svg">
+                    <item.svg/>
+                </div>
                 <p>{item.text}</p>
             </div>
         </div>
@@ -33,14 +35,14 @@ function SampleArrow(props) {
 
 function mainSlider(){
     const items = [
-        { text: "Item 1", svg: Svg1 },
-        { text: "Item 2", svg: Svg1 },
-        { text: "Item 3", svg: Svg1 },
-        { text: "Item 4", svg: Svg1 },
-        { text: "Item 5", svg: Svg1 },
-        { text: "Item 6", svg: Svg1 },
-        { text: "Item 7", svg: Svg1 },
-        { text: "Item 8", svg: Svg1 }
+        { text: "Высокая и оперативная скорость обработки заявки", svg: Svg1 },
+        { text: "Огромная комплексная база данных, обеспечивающая объективный ответ на запрос", svg: Svg2 },
+        { text: "Защита конфеденциальных сведений, не подлежащих разглашению по федеральному законодательству", svg: Svg3 },
+        { text: "Заглушка №1, для визуализации слайдера testtest", svg: Svg1 },
+        { text: "Заглушка №2, для визуализации слайдера testtest", svg: Svg2 },
+        { text: "Заглушка №3, для визуализации слайдера testtest", svg: Svg3 },
+        { text: "Заглушка №4, для визуализации слайдера testtest", svg: Svg1 },
+        { text: "Заглушка №5, для визуализации слайдера testtest", svg: Svg2 }
     ];
     const settings = {
         className: "center",
@@ -49,8 +51,22 @@ function mainSlider(){
         swipeToSlide: true,
         arrows: true,
         autoplay: false,
-        nextArrow: <SampleArrow img={btnprev}/>,
-        prevArrow: <SampleArrow img={btnprev} rotate={true}/>,
+        nextArrow: <SampleArrow img={btnprev} />,
+        prevArrow: <SampleArrow img={btnprev}  rotate={true}/>,
+        responsive:[
+            {
+                breakpoint:768,
+                settings:{
+                    slidesToShow: 2
+                }
+            },
+            {
+                breakpoint:680,
+                settings:{
+                    slidesToShow: 1
+                }
+            }
+        ]
     };
     return (
     <div className="slider-container">
