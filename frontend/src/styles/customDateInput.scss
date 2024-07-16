@@ -1,0 +1,17 @@
+.custom-date-input {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-date-input input {
+    width: 100%;
+    padding-right: 30px; /* чтобы был отступ для иконки */
+}
+
+.icon-calendar {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

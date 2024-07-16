@@ -3,7 +3,7 @@
 .slider-container{
     display: flex;
     flex-direction: column;
-    margin: 0 7% 0 7%;
+    margin: 0 4.5% 0 4.5%;
 }
 .slider-element{
     height: 250px;
@@ -95,5 +95,13 @@
     .slider-element{
         height: 210px;
         
+    }
+}
+@media (max-width:360px){
+    .slider-element{
+        height: 240px;
+    }
+    .slider-element__in__svg{
+        height: 35%;
     }
 }

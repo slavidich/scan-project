@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import btnprev from '../img/button_prev.png'
 import "../styles/mainSlider.scss"
-import {Svg1, Svg2, Svg3}  from "../img/slick-svg.jsx"
+import {Svg1, Svg2, Svg3}  from "../img/allSvg.jsx"
 
 function CustomSlide(props){
     const {item, ...otherProps } = props

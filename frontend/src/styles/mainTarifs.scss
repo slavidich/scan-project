@@ -279,9 +279,21 @@
     }
 }
   
-  @media (max-width: 599px) {
+@media (max-width: 599px) {
     .main__tarifs {
         margin-left: $left-margin-small;
         margin-right: $right-margin-small;
+    }
+}
+@media (max-width:360px){
+    .main__block1__text__1{
+        font-size: 23px !important;
+    }
+    .main__tarifs__tarif{
+        width:300px !important;
+        min-width: 300px !important;
+    }
+    .main__tarifs__tarif__div__button>a {
+        font-size:18px;
     }
 }

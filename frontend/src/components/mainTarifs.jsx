@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/mainTarifs.scss"
-import {SvgTarif1, SvgTarif2, SvgTarif3} from "../img/slick-svg.jsx"
+import {SvgTarif1, SvgTarif2, SvgTarif3} from "../img/allSvg.jsx"
 import Ok1 from "../img/ok1.png"
 
 function MainTarifs(){

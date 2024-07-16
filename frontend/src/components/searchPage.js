@@ -1,25 +1,25 @@
 import React, {useState} from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Navigate } from 'react-router-dom';
-import axios from "axios";
 import SearchResults from "./searchResults.jsx";
+import '../styles/searchPage.scss'
+import CustomDateInput from './customDateInput.jsx'
 
 function searchPage(){
     const isAuth = useSelector((state) => state.auth.isAuth);
     const [searchGo, setsearchGo] = useState(null);
     const [formData, setFormData] = useState({
-        inn: '86 020 605 55',
+        inn: '', //86 020 605 55
         tone: 'any',
-        documentCount: '500',
-        startDate: '2024-05-17',
-        endDate: '2024-06-17',
+        documentCount: '', //500
+        startDate: '', //2024-05-17
+        endDate: '', //2024-06-17
         maxCompleteness: true,
         businessContext: true,
         mainRole: true,
-        riskFactors: true,
+        riskFactors: false,
         technicalNews: false,
-        announcements: false,
+        announcements: true,
         newsSummary: false,
     });
     const [errors, setErrors] = useState({
@@ -63,7 +63,6 @@ function searchPage(){
         if (name === 'documentCount') {
             const regex = /^[0-9]*$/;
             if (!regex.test(value)){
-                setErrors({ ...errors, documentCount: true });
                 return;
             } else {
                 if(e.target.value<1 || e.target.value>1000) {
@@ -87,8 +86,7 @@ function searchPage(){
             ...formData,
             [name]: type === 'checkbox' ? checked : value
         });
-
-
+        
     };
     // Функция для форматирования строки ИНН
     const formatINN = (value) => {
@@ -110,7 +108,13 @@ function searchPage(){
         return formatted;
     };
     const validateDates = (startDate, endDate)=>{
-        const currentDate = new Date().toISOString().split('T')[0];
+        const parseDate= (dateString)=>{
+            const [day, month, year] = dateString.split('.');
+            return new Date(year, month - 1, day);
+        }
+        startDate = parseDate(startDate)
+        endDate = parseDate(endDate)
+        const currentDate = new Date()
         if ((startDate && endDate) &&(startDate > endDate || endDate > currentDate)){
             setErrors({
                 ...errors,
@@ -124,6 +128,7 @@ function searchPage(){
             })
         }
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isFormValid()) {
@@ -134,6 +139,7 @@ function searchPage(){
     const closeResults = ()=>{
         setsearchGo(false)
     }
+    
     if (!isAuth){
         return <Navigate to="/" />
     }
@@ -141,144 +147,180 @@ function searchPage(){
     {searchGo?
         (<SearchResults formData={formData} closeResults={closeResults}/>)
         :
-        (<div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>ИНН компании *</label>
-                    <input
-                        type="text"
-                        name="inn"
-                        value={formData.inn}
-                        onChange={handleChange}
-                        maxLength="13"
-                        required
-                    />
-                    {errors.inn && <p>ИНН должен состоять из 10 цифр!</p>}
+        (
+        <>
+        <div className="center__div search__center">
+            <div className="searchpage">
+                <div className="searchpage__updiv">
+                    <div className="searchpage__text">
+                            <p>Найдите необходимые<br></br>данные в пару кликов.</p>
+                            <p>Задайте параметры поиска. <br></br>
+                            Чем больше заполните, тем точнее поиск</p>
+                    </div>
+                    <div className="searchpage__updiv__svg">
+
+                    </div>
                 </div>
-                <div>
-                    <label>Тональность</label>
-                    <select
-                        name="tone"
-                        value={formData.tone}
-                        onChange={handleChange}
-                        multiple={false}
-                    >
-                        <option value="any">Любая</option>
-                        <option value="positive">Позитивная</option>
-                        <option value="neutral">Нейтральная</option>
-                        <option value="negative">Негативная</option>
-                    </select>
+                <div className="searchpage__downdiv">
+                    <form className="searchpage__form" onSubmit={handleSubmit}>
+                        <div className="searchpage__form__leftdiv">
+                            <div className="searchForm__inputdiv">
+                                <label>ИНН компании<span>*</span></label>
+                                <input
+                                    type="text"
+                                    name="inn"
+                                    value={formData.inn}
+                                    onChange={handleChange}
+                                    maxLength="13"
+                                    placeholder="10 цифр"
+                                    required
+                                />
+                                {errors.inn && <p>ИНН должен состоять из 10 цифр!</p>}
+                            </div>
+                            <div className="searchForm__inputdiv"> 
+                                <label>Тональность</label>
+                                <select
+                                    name="tone"
+                                    value={formData.tone}
+                                    onChange={handleChange}
+                                    multiple={false}
+                                >
+                                    <option value="any">Любая</option>
+                                    <option value="positive">Позитивная</option>
+                                    <option value="neutral">Нейтральная</option>
+                                    <option value="negative">Негативная</option>
+                                </select>
+                            </div>
+                            <div className="searchForm__inputdiv">
+                                <label>Количество документов в выдаче<span>*</span></label>
+                                <input
+                                    name="documentCount"
+                                    value={formData.documentCount}
+                                    onChange={handleChange}
+                                    min="1"
+                                    max="1000"
+                                    placeholder="От 1 до 1000"
+                                    required
+                                />
+                                {errors.documentCount && <p>Укажите значение от 1 до 1000</p>}
+                            </div>
+                            <div className="searchForm__inputdiv">
+                                <label>Диапазон поиска<span>*</span></label>
+                                <div>
+                                    <CustomDateInput 
+                                        name="startDate"
+                                        placeholder="Дата начала"
+                                        value={formData.startDate}
+                                        onChange={handleChange}  
+                                    />
+                                    <CustomDateInput
+                                        name="endDate"
+                                        placeholder="Дата конца"
+                                        value={formData.endDate}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                {errors.date && <p>Введите корректное значение</p>}
+                            </div>
+                    
+                        </div>
+                        <div className="searchpage__form__rightdiv">
+                            <div>
+                                <label className={formData.maxCompleteness? "searchform__inputdiv__checkbox":"searchform__inputdiv__checkbox searchform__inputdiv__checkbox__disable"} >
+                                    <input
+                                        type="checkbox"
+                                        name="maxCompleteness"
+                                        checked={formData.maxCompleteness}
+                                        onChange={handleChange}
+                                    />
+                                    <span className="checkmark"></span>
+                                    Признак максимальной полноты
+                                </label>
+                            </div>
+                            <div>
+                            <label className={formData.businessContext? "searchform__inputdiv__checkbox":"searchform__inputdiv__checkbox searchform__inputdiv__checkbox__disable"} >
+                                    <input
+                                        type="checkbox"
+                                        name="businessContext"
+                                        checked={formData.businessContext}
+                                        onChange={handleChange}
+                                    />
+                                    <span className="checkmark"></span>
+                                    Упоминания в бизнес-контексте
+                                </label>
+                            </div>
+                            <div >
+                            <label className={formData.mainRole? "searchform__inputdiv__checkbox":"searchform__inputdiv__checkbox searchform__inputdiv__checkbox__disable"} >
+                                    <input
+                                        type="checkbox"
+                                        name="mainRole"
+                                        checked={formData.mainRole}
+                                        onChange={handleChange}
+                                    />
+                                    <span className="checkmark"></span>
+                                    Главная роль в публикации
+                                </label>
+                            </div>
+                            <div >
+                            <label className={formData.riskFactors? "searchform__inputdiv__checkbox":"searchform__inputdiv__checkbox searchform__inputdiv__checkbox__disable"} >
+                                    <input
+                                        type="checkbox"
+                                        name="riskFactors"
+                                        checked={formData.riskFactors}
+                                        onChange={handleChange}
+                                    />
+                                    <span className="checkmark"></span>
+                                    Публикации только с риск-факторами
+                                </label>
+                            </div>
+                            <div >
+                            <label className={formData.technicalNews? "searchform__inputdiv__checkbox":"searchform__inputdiv__checkbox searchform__inputdiv__checkbox__disable"} >
+                                    <input
+                                        type="checkbox"
+                                        name="technicalNews"
+                                        checked={formData.technicalNews}
+                                        onChange={handleChange}
+                                    />
+                                    <span className="checkmark"></span>
+                                    Включать технические новости рынков
+                                </label>
+                            </div>
+                            <div >
+                            <label className={formData.announcements? "searchform__inputdiv__checkbox":"searchform__inputdiv__checkbox searchform__inputdiv__checkbox__disable"} >
+                                    <input
+                                        type="checkbox"
+                                        name="announcements"
+                                        checked={formData.announcements}
+                                        onChange={handleChange}
+                                    />
+                                    <span className="checkmark"></span>
+                                    Включать анонсы и календари
+                                </label>
+                            </div>
+                            <div >
+                            <label className={formData.newsSummary? "searchform__inputdiv__checkbox":"searchform__inputdiv__checkbox searchform__inputdiv__checkbox__disable"} >
+                                    <input
+                                        type="checkbox"
+                                        name="newsSummary"
+                                        checked={formData.newsSummary}
+                                        onChange={handleChange}
+                                    />
+                                    <span className="checkmark"></span>
+                                    Включать сводки новостей
+                                </label>
+                            </div>
+                            <button className={isFormValid()? "submit-btn-active submit-btn searchform-btn":"submit-btn searchform-btn"} type="submit" disabled={!isFormValid()}> Поиск</button>
+                            <p>* Обязательные к заполнению поля</p>
+                        </div>
+                    </form>
+                    <div className="searchpage__updiv__svg">
+                        
+                    </div>
                 </div>
-                <div>
-                    <label>Количество документов в выдаче *</label>
-                    <input
-                        name="documentCount"
-                        value={formData.documentCount}
-                        onChange={handleChange}
-                        min="1"
-                        max="1000"
-                        required
-                    />
-                    {errors.documentCount && <p>Укажите значение от 1 до 1000</p>}
-                </div>
-                <div>
-                    <label>Диапазон поиска *</label>
-                    <input
-                        type="date"
-                        name="startDate"
-                        value={formData.startDate}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="date"
-                        name="endDate"
-                        value={formData.endDate}
-                        onChange={handleChange}
-                        required
-                    />
-                    {errors.date && <p>Введите корректное значение</p>}
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="maxCompleteness"
-                            checked={formData.maxCompleteness}
-                            onChange={handleChange}
-                        />
-                        Признак максимальной полноты
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="businessContext"
-                            checked={formData.businessContext}
-                            onChange={handleChange}
-                        />
-                        Упоминания в бизнес-контексте
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="mainRole"
-                            checked={formData.mainRole}
-                            onChange={handleChange}
-                        />
-                        Главная роль в публикации
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="riskFactors"
-                            checked={formData.riskFactors}
-                            onChange={handleChange}
-                        />
-                        Публикации только с риск-факторами
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="technicalNews"
-                            checked={formData.technicalNews}
-                            onChange={handleChange}
-                        />
-                        Включать технические новости рынков
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="announcements"
-                            checked={formData.announcements}
-                            onChange={handleChange}
-                        />
-                        Включать анонсы и календари
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="newsSummary"
-                            checked={formData.newsSummary}
-                            onChange={handleChange}
-                        />
-                        Включать сводки новостей
-                    </label>
-                </div>
-                <button type="submit" disabled={!isFormValid()}> Поиск</button>
-            </form>
-        </div>)}
+            </div>
+        </div>
+                               
+        </>)}
         </>)
 }
 

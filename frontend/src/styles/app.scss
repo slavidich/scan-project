@@ -13,5 +13,12 @@ html, body{
 }
 .main{
     flex: 1 1 auto;
+    display:flex;
+    justify-content: center;
 }
 
+.center__div{
+    display:flex;
+    max-width: 1440px;
+    min-width: 0px;
+}

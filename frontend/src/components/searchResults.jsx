@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Document from './document.jsx';
+import moment from 'moment';
 
 function SearchResults(props) {
     const [data, setData] = useState(0);
@@ -24,8 +25,8 @@ function SearchResults(props) {
                 "riskFactors"
             ],
             issueDateInterval:{
-                startDate: `${props.formData.startDate}T00:00:00+03:00`,
-                endDate: `${props.formData.endDate}T23:59:00+03:00`
+                startDate: moment(props.formData.startDate, 'DD.MM.YYYY').toDate(),
+                endDate:  moment(props.formData.endDate, 'DD.MM.YYYY').toDate()
             },
             searchContext:{
                 targetSearchEntitiesContext:{

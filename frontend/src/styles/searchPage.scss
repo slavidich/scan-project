@@ -1,0 +1,187 @@
+@import './colors.scss';
+
+.search__center{
+    flex:1;
+    justify-content: center;
+    
+}
+.searchpage{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    margin-right: $right-margin;
+    margin-left: $left-margin;
+}
+//текст 
+.searchpage__text p:nth-child(1){
+    max-width: 872px;
+    font-family: 'Ferry';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: 0.03em;
+
+}
+.searchpage__text p:nth-child(2){
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+}
+//текст
+.searchpage__form{
+    display:flex;
+    box-sizing: border-box;
+    padding: 30px 30px 0px 30px;
+    width: 872px;
+    min-width: 833px;
+    height: 543px;  
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-bottom:50px;
+}
+.searchForm__inputdiv{
+    display:flex;
+    flex-direction: column;
+    margin-bottom: 35px;
+}
+.searchForm__inputdiv span{
+    font-size: 22px;
+    font-style: bold;
+}
+.searchpage__form__leftdiv>.searchForm__inputdiv:last-child>div  {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right:5%;
+}
+.searchpage__form__leftdiv>.searchForm__inputdiv:last-child{
+    position: relative;
+    
+}
+.searchpage__form__leftdiv>.searchForm__inputdiv:last-child input{
+    width:170px;
+    box-sizing: border-box;   
+}
+
+.searchpage__form__leftdiv{
+    width:49%
+}
+.searchpage__form label{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.03em;
+}
+.searchForm__inputdiv label{ 
+    margin-bottom: 20px;
+}
+.searchform__inputdiv__checkbox{
+    margin-bottom: 25px;
+}
+.searchform__inputdiv__checkbox__disable{
+    color:gray
+}
+.searchform__inputdiv__checkbox__disable .checkmark{
+    border: 2px solid gray !important;
+
+}
+.searchForm__inputdiv input, .searchpage__form select { //!!!!
+    height: 40px;
+    font-size: 16px;
+    background-color: white;
+    padding: 5px 10px;
+    border: 1px solid #C7C7C7;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+.searchpage__form__leftdiv>.searchForm__inputdiv>input, .searchpage__form__leftdiv>.searchForm__inputdiv>select{
+    width: 240px;
+    
+    box-sizing: border-box;
+    text-align: center;
+}
+.searchpage__form__rightdiv{
+    display:flex;
+    flex-direction: column;
+}
+// тут чекбоксы чисто
+.searchform__inputdiv__checkbox input:checked + .searchform__inputdiv__checkbox span:after{
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid green;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+.searchform__inputdiv__checkbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px; /* Adjust font size as needed */
+}
+.searchform__inputdiv__checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.searchform__inputdiv__checkbox .checkmark {
+    display: inline-block;
+    width: 16px; /* Adjust size as needed */
+    height: 16px; /* Adjust size as needed */
+    background-color: white;
+    border: 2px solid rgba(0, 0, 0, 1);
+    margin-right: 5px; /* Space between checkbox and label text */
+}
+.searchform__inputdiv__checkbox input:checked + .checkmark {
+    background-color: white;
+    border-color: rgba(0, 0, 0, 1);
+}
+.searchform__inputdiv__checkbox input:checked + .checkmark:after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 12px;
+    border: solid green;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+// чекбоксы выше
+.searchform-btn{
+    width:305px;
+    align-self: flex-end;
+    margin-top: 65px;
+}
+.searchform-btn+p{
+    display:block;
+    font-size:14px;
+    text-align: center;
+    margin:5px 0 0 0;
+    color:#949494;
+    margin-left:auto;
+    width:365px;
+}
+//даты 
+
+
+//даты
+//MARGIN 
+@media (max-width: 1200px) and (min-width: 600px) {
+    
+}
+  
+  @media (max-width: 599px) {
+    
+}

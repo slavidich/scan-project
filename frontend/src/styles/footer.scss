@@ -1,9 +1,21 @@
 @import './colors.scss';
 
 .footer{
+    width: 100%;
     margin:0;
     height:137px;
     background-color: $main-green;
+    display:flex;
+    justify-content: center;
+}
+.footer__center__div{
+    height:137px;
+    display: flex;;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    background-color: #029491;
 }
 .footer__logo{
     margin-left:$left-margin
@@ -26,6 +38,7 @@
         
     }
     .footer__logo {
+        overflow: hidden;
         display:flex;
         justify-content: flex-start;
     }
@@ -48,5 +61,10 @@
     }
     .footer__text{
         margin-right: $right-margin-small;
+    }
+}
+@media (max-width: 360px) {
+    .footer__text {
+        font-size:13px;
     }
 }

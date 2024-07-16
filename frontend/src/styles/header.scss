@@ -1,19 +1,29 @@
 @import './colors.scss';
 
-
-.header {
+.header__center__div{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 93px;
+    width: 100%;
+}
+.header {
+    display: flex;
+    justify-content: center;
     align-items: center;
     padding: 0px;
     height: 93px;
     font-family: Inter;
     font-size:14px;
-    margin:0 $right-margin 0 $left-margin
+    
 }
 .header__user, .header__logo, .header__auth{
     width:40%;
     height:100%;
+}
+.header__user, .header__auth{
+    box-sizing: border-box;
+    margin-right: $right-margin
 }
 .header a{
     text-decoration: none;
@@ -188,9 +198,7 @@
     .header__nav, .header__user__profile{
         display:none;
     }
-    .header__logo img{
-        margin-left:2%;
-    }
+  
     .header__auth{
         display:none
     }
@@ -204,17 +212,18 @@
         color: $main-green
     }
 }
+
 //MARGIN 
 @media (max-width: 1200px) and (min-width: 600px) {
-    .header {
-        margin-left: $left-margin-medium;
-        margin-right: $right-margin-medium;
+    .menu-button{
+        
+        margin-right:$right-margin-medium;
     }
 }
   
-  @media (max-width: 599px) {
-    .header {
-        margin-left: $left-margin-small;
-        margin-right: $right-margin-small;
+@media (max-width: 599px) {
+    .menu-button{
+        
+        margin-right:$right-margin-small;
     }
 }
