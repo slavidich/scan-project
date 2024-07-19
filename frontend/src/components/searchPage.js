@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import SearchResults from "./searchResults.jsx";
 import '../styles/searchPage.scss'
 import CustomDateInput from './customDateInput.jsx'
+import {SvgSearchPageMain,SvgSearch1,SvgSearch2} from '../img/allSvg.jsx'
 
 function searchPage(){
     const isAuth = useSelector((state) => state.auth.isAuth);
@@ -158,7 +159,8 @@ function searchPage(){
                             Чем больше заполните, тем точнее поиск</p>
                     </div>
                     <div className="searchpage__updiv__svg">
-
+                        <SvgSearch1/>
+                        <SvgSearch2/>
                     </div>
                 </div>
                 <div className="searchpage__downdiv">
@@ -313,8 +315,8 @@ function searchPage(){
                             <p>* Обязательные к заполнению поля</p>
                         </div>
                     </form>
-                    <div className="searchpage__updiv__svg">
-                        
+                    <div className="searchpage__downdiv__svg">
+                        <SvgSearchPageMain/>
                     </div>
                 </div>
             </div>
