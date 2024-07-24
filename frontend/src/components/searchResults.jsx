@@ -4,19 +4,18 @@ import Document from './document.jsx';
 import moment from 'moment';
 
 function SearchResults(props) {
-    const [data, setData] = useState(0);
+    const [summaryData, setSummaryData] = useState(0);
     const [summaryIsLoading, setSummaryIsLoading] = useState(true);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [error, setError] = useState(false)
-    const [firstLoadingDocuments, setFirstLoadingDocuments] = useState(true)
+
+    const [error, setError] = useState(null)
+
     const [arrayOfDocuments, setArrayOfDocuments] = useState([])
     const [documentsIsLoading, setDocumentIsLoading] = useState(true)
     const [showedDocuments, setShowedDocuments] = useState(0)
     const [documents, setDocuments] = useState([])
+
     const [canLoadMore, setCanLoadMore] = useState(true)
-
-    const summaryInRow = 8
-
+    const loadMoreCount = 10
     useEffect(() => {
         const requestBody = {
             intervalType: "month",
@@ -60,6 +59,7 @@ function SearchResults(props) {
                         'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
                     }
                 });
+                console.log(resp)
                 const combinedData = Object.values(resp.data.data.reduce((dict, current)=>{
                     current.data.forEach(item=>{
                             const date = new Date(item.date);
@@ -80,17 +80,22 @@ function SearchResults(props) {
                     let dateB = new Date(b.date)
                     return dateA-dateB
                 })
+
                 const sum = combinedData.reduce((sum, item)=>{
                     return sum+item.totalDocuments
                 },0 )
-                if (sum===0) setError(400)
-                setData({
-                    allcount: sum,
-                    dates: combinedData
-                })
+                setSummaryData(() => {
+                    const newSummaryData = {
+                        allcount: sum,
+                        dates: combinedData
+                    };
+                    console.log(newSummaryData);
+                    return newSummaryData;
+                });
                 setSummaryIsLoading(false)
+
             } catch (error) {
-                setError(500)
+                setError(error.response.status)
             }
         };
         const fetchCount = async() =>{
@@ -108,9 +113,10 @@ function SearchResults(props) {
                     return list
                 },[])
                 setArrayOfDocuments(listOfId)
-                setShowedDocuments((prev)=>prev+10)
+                setShowedDocuments((prev)=>prev+loadMoreCount)
             }
             catch (error){
+                console.log('ОШИБКА 2 ',error)
                 setError(500)
             }
         }
@@ -143,10 +149,10 @@ function SearchResults(props) {
                         title: item.ok.title.text
                     })
                 })
-                console.log(newDocuments)
+                
                 setDocuments((prevDocuments)=>[...prevDocuments, ...newDocuments])
                 setDocumentIsLoading(false)
-                if (firstLoadingDocuments) setFirstLoadingDocuments(false)
+                
                 if (showedDocuments>=arrayOfDocuments.length) {
                     setCanLoadMore(false)
                 }
@@ -157,85 +163,48 @@ function SearchResults(props) {
         showNext10Posts()
     }, [showedDocuments])
     
-    const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
-    };
-
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex < data.dates.length - summaryInRow ? prevIndex + 1 : prevIndex));
-    };
-
-    const visibleData = data.dates && data.dates.slice(currentIndex, currentIndex + summaryInRow);
     const goSearch=()=>{
         props.closeResults()
     }
     const handleLoadMore = ()=>{
+        setShowedDocuments((prev)=>prev+loadMoreCount)
+    }
 
-        setShowedDocuments((prev)=>prev+10)
-    }
-    if (error===500){
-        return (<h1>Ошибка сервера!</h1>)
-    }
-    if (error===400){
-        return (<h1>Запрос не выдал результатов!</h1>)
-    }
     return (
         <>
-            {summaryIsLoading ? (<p>Загрузка...</p>) 
-            : 
-            (<div>
+            {error==500?"Ошибка!":<></>}
+            <div>
                 <h2>Общая сводка</h2>
-                <h4>Всего: {data.allcount}</h4>
-                <div>
-                    <button onClick={handlePrev} disabled={currentIndex === 0}>
-                        {'<'}
-                    </button>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Период</th>
-                                <th>Всего</th>
-                                <th>Риски</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {visibleData.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{item.date.toLocaleDateString()}</td>
-                                    <td>{item.totalDocuments}</td>
-                                    <td>{item.riskFactors}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <button onClick={handleNext} disabled={currentIndex === data.dates.length - summaryInRow ||  data.dates.length<summaryInRow}>
-                        {'>'}
-                    </button>
-                </div>
+                <h4>Всего: {(summaryIsLoading||documentsIsLoading)? "Загрузка общой сводки":summaryData.allcount}</h4>
                 <button onClick={goSearch}>Вернуться</button>
-            </div>)}
+            </div>
             
 
-            {firstLoadingDocuments?
-                    <p>Первичная загрузка документов</p>
+            
+                
+            <>
+                {documents?
+                    documents.map((item, index)=>{
+                        return  <Document key={item.id} data={item} index={index+1}></Document>
+                    })
                 :
-                    
+                    <></>
+                }
+                
+                {documents.length==0?
                     <>
-                    {documents?
-                        documents.map((item, index)=>{
-                            console.log(item, 123)
-                            return  <Document key={item.id} data={item} index={index+1}></Document>
-                        })
-                    :
-                        <></>
-                    }
-                    {canLoadMore?
+                        
+                    </>
+                :
+                    <>{canLoadMore?
                         <button onClick={handleLoadMore} disabled={documentsIsLoading}>{documentsIsLoading?"Загрузка...":"Загрузить еще документы"}</button>
                         :
                         <p>Больше нечего загружать!</p>
-                    }
-                    </>
-            }
+                    }</>
+                }
+                
+            </>
+            
         </>
     );
 }

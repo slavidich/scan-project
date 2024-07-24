@@ -4,7 +4,7 @@ import Pikaday from 'pikaday';
 import 'pikaday/css/pikaday.css';
 import '../styles/customDateInput.scss';
 
-const DatePicker = ({ name, placeholder, value, onChange, onFocus, onSelect }) => {
+const DatePicker = ({ name, placeholder, value, onChange, onFocus, onSelect, className }) => {
     const datepickerRef = useRef(null);
     const inputRef = useRef(null);
     const ruDate = {
@@ -41,6 +41,7 @@ const DatePicker = ({ name, placeholder, value, onChange, onFocus, onSelect }) =
     return (
         <div className="custom-date-input" ref={datepickerRef}>
             <input
+                className={className}
                 type="text"
                 name={name}
                 placeholder={placeholder}

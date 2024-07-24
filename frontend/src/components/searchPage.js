@@ -10,11 +10,11 @@ function searchPage(){
     const isAuth = useSelector((state) => state.auth.isAuth);
     const [searchGo, setsearchGo] = useState(null);
     const [formData, setFormData] = useState({
-        inn: '', //86 020 605 55
+        inn: '86 020 605 55', //
         tone: 'any',
-        documentCount: '', //500
-        startDate: '', //2024-05-17
-        endDate: '', //2024-06-17
+        documentCount: '500', //
+        startDate: '17.05.2024', //
+        endDate: '17.06.2024', //
         maxCompleteness: true,
         businessContext: true,
         mainRole: true,
@@ -144,14 +144,15 @@ function searchPage(){
     if (!isAuth){
         return <Navigate to="/" />
     }
-    return(<>
-    {searchGo?
-        (<SearchResults formData={formData} closeResults={closeResults}/>)
-        :
-        (
+    return(
+    
+    
+        
         <>
         <div className="center__div search__center">
             <div className="searchpage">
+
+                {searchGo?(<SearchResults formData={formData} closeResults={closeResults}/>):(<>
                 <div className="searchpage__updiv">
                     <div className="searchpage__text">
                             <p>Найдите необходимые<br></br>данные в пару кликов.</p>
@@ -166,9 +167,10 @@ function searchPage(){
                 <div className="searchpage__downdiv">
                     <form className="searchpage__form" onSubmit={handleSubmit}>
                         <div className="searchpage__form__leftdiv">
-                            <div className="searchForm__inputdiv">
+                            <div className={`searchForm__inputdiv ${errors.inn? 'searchForm__inputdivError': ''}`}>
                                 <label>ИНН компании<span>*</span></label>
                                 <input
+                                    className={errors.inn?"searchForm__inputError":""}
                                     type="text"
                                     name="inn"
                                     value={formData.inn}
@@ -177,7 +179,7 @@ function searchPage(){
                                     placeholder="10 цифр"
                                     required
                                 />
-                                {errors.inn && <p>ИНН должен состоять из 10 цифр!</p>}
+                                {errors.inn && <p className="searchForm__inputdiv__error">Введите корректные данные</p>}
                             </div>
                             <div className="searchForm__inputdiv"> 
                                 <label>Тональность</label>
@@ -193,9 +195,10 @@ function searchPage(){
                                     <option value="negative">Негативная</option>
                                 </select>
                             </div>
-                            <div className="searchForm__inputdiv">
+                            <div className={`searchForm__inputdiv ${errors.documentCount? 'searchForm__inputdivError': ''}`}>
                                 <label>Количество документов в выдаче<span>*</span></label>
                                 <input
+                                    className={errors.documentCount?"searchForm__inputError":""}
                                     name="documentCount"
                                     value={formData.documentCount}
                                     onChange={handleChange}
@@ -204,25 +207,27 @@ function searchPage(){
                                     placeholder="От 1 до 1000"
                                     required
                                 />
-                                {errors.documentCount && <p>Укажите значение от 1 до 1000</p>}
+                                {errors.documentCount && <p className="searchForm__inputdiv__error">Укажите значение от 1 до 1000</p>}
                             </div>
-                            <div className="searchForm__inputdiv">
+                            <div className={`searchForm__inputdiv ${errors.date? 'searchForm__inputdivError': ''}`}>
                                 <label>Диапазон поиска<span>*</span></label>
                                 <div>
                                     <CustomDateInput 
+                                        className={errors.date?"searchForm__inputError":""}
                                         name="startDate"
                                         placeholder="Дата начала"
                                         value={formData.startDate}
                                         onChange={handleChange}  
                                     />
                                     <CustomDateInput
+                                        className={errors.date?"searchForm__inputError":""}
                                         name="endDate"
                                         placeholder="Дата конца"
                                         value={formData.endDate}
                                         onChange={handleChange}
                                     />
                                 </div>
-                                {errors.date && <p>Введите корректное значение</p>}
+                                {errors.date && <p className="searchForm__inputdiv__error">Введите корректные данные</p>}
                             </div>
                     
                         </div>
@@ -318,11 +323,10 @@ function searchPage(){
                     <div className="searchpage__downdiv__svg">
                         <SvgSearchPageMain/>
                     </div>
-                </div>
+                </div></>)}
             </div>
         </div>
                                
-        </>)}
         </>)
 }
 
