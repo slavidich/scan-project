@@ -76,3 +76,4 @@ function mainSlider(){
     </div>)
 }
 export default mainSlider
+export {SampleArrow}

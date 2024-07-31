@@ -13,7 +13,7 @@ function searchPage(){
         inn: '86 020 605 55', //
         tone: 'any',
         documentCount: '500', //
-        startDate: '17.05.2024', //
+        startDate: '17.06.2023', //
         endDate: '17.06.2024', //
         maxCompleteness: true,
         businessContext: true,
@@ -152,7 +152,8 @@ function searchPage(){
         <div className="center__div search__center">
             <div className="searchpage">
 
-                {searchGo?(<SearchResults formData={formData} closeResults={closeResults}/>):(<>
+                {searchGo?(<SearchResults formData={formData} closeResults={closeResults}/>):(
+                <>
                 <div className="searchpage__updiv">
                     <div className="searchpage__text">
                             <p>Найдите необходимые<br></br>данные в пару кликов.</p>
@@ -323,7 +324,8 @@ function searchPage(){
                     <div className="searchpage__downdiv__svg">
                         <SvgSearchPageMain/>
                     </div>
-                </div></>)}
+                </div>
+                </>)}
             </div>
         </div>
                                

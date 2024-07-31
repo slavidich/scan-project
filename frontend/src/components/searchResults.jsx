@@ -2,10 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Document from './document.jsx';
 import moment from 'moment';
+import {SvgSearchResults} from '../img/allSvg.jsx'
+import '../styles/searchResults.scss'
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import btnprev from '../img/button_prev.png'
+import {SampleArrow} from '../components/mainSlider.jsx'
 
 function SearchResults(props) {
     const [summaryData, setSummaryData] = useState(0);
     const [summaryIsLoading, setSummaryIsLoading] = useState(true);
+    const sliderRef = React.useRef(null);
 
     const [error, setError] = useState(null)
 
@@ -95,6 +103,7 @@ function SearchResults(props) {
                 setSummaryIsLoading(false)
 
             } catch (error) {
+                console.log(error)
                 setError(error.response.status)
             }
         };
@@ -162,34 +171,145 @@ function SearchResults(props) {
         }
         showNext10Posts()
     }, [showedDocuments])
-    
     const goSearch=()=>{
         props.closeResults()
     }
     const handleLoadMore = ()=>{
         setShowedDocuments((prev)=>prev+loadMoreCount)
     }
-
+    const getSlidesToShow = () => {
+        const width = window.innerWidth;
+        if (width >= 1300) return 8;
+        if (width >= 1100) return 7;
+        if (width >= 900) return 6;
+        if (width >= 700) return 5;
+        return 4;
+    };
+    const updateButtons = (next) => {
+        const slidesToShow = getSlidesToShow();
+        if (next===0){
+            document.querySelector('.searchpage__results__carousel__leftbtn').classList.add('searchpage__results__carousel__btn__disable')
+            document.querySelector('.searchpage__results__carousel__leftbtn').removeEventListener('click',handlePrev)
+        }
+        else{
+            document.querySelector('.searchpage__results__carousel__leftbtn').classList.remove('searchpage__results__carousel__btn__disable')
+            document.querySelector('.searchpage__results__carousel__leftbtn').addEventListener('click',handlePrev)
+        }
+        if (next+slidesToShow>=summaryData.dates.length){
+            document.querySelector('.searchpage__results__carousel__rightbtn').classList.add('searchpage__results__carousel__btn__disable')
+            document.querySelector('.searchpage__results__carousel__rightbtn').removeEventListener('click',handelNext)
+        }
+        else{
+            document.querySelector('.searchpage__results__carousel__rightbtn').classList.remove('searchpage__results__carousel__btn__disable')
+            document.querySelector('.searchpage__results__carousel__rightbtn').addEventListener('click',handelNext)
+        }
+    }
+    const settings = {
+        className: "",
+        infinite: false,
+        swipeToSlide: true,
+        speed:500,
+        slidesToShow: 8,
+        slidesToScroll: 1,
+        arrows: false,
+        autoplay: false,
+        touchThreshold: 100,
+        beforeChange: (current, next) => updateButtons(next),
+        onInit: ()=>updateButtons(0),
+        responsive:[
+            {
+                breakpoint:1300,
+                settings:{
+                    slidesToShow: 7
+                }
+            },
+            {
+                breakpoint:1100,
+                settings:{
+                    slidesToShow: 6
+                }
+            },
+            {
+                breakpoint:900,
+                settings:{
+                    slidesToShow: 5
+                }
+            },{
+                breakpoint:700,
+                settings:{
+                    slidesToShow: 4
+                }
+            }
+        ]
+    };
+    const SummarySlider = ()=>{
+        return (<Slider ref={sliderRef} {...settings}>
+            
+            {summaryData.dates.map((item, index)=>{
+                            return(<div className="searchpage__results__slider__slide" key={index}>
+                                <p>{moment(item.date).format('DD.MM.YYYY').toString()}</p>
+                                <p>{item.totalDocuments}</p>
+                                <p>{item.riskFactors}</p>
+                            </div>)
+                        })}
+                        
+        </Slider>)
+    }
+    const handlePrev = () =>{
+        if (sliderRef.current && sliderRef.current.slickPrev){
+            sliderRef.current.slickPrev()
+        }
+    }
+    const handelNext = () =>{
+        if (sliderRef.current && sliderRef.current.slickNext) {
+            sliderRef.current.slickNext()
+        }
+    }
     return (
         <>
-            {error==500?"Ошибка!":<></>}
-            <div>
-                <h2>Общая сводка</h2>
-                <h4>Всего: {(summaryIsLoading||documentsIsLoading)? "Загрузка общой сводки":summaryData.allcount}</h4>
-                <button onClick={goSearch}>Вернуться</button>
+            <div className='searchpage__results__updiv'>
+                <div className='searchpage__results__updiv__text'>
+                    <p>Ищем. Скоро <br></br>будут результаты</p>
+                    <p>Поиск может занять некоторое время, <br></br>просим сохранять терпение.</p>
+                </div>
+                <SvgSearchResults/>
             </div>
-            
-
-            
-                
+            {error==500?"Ошибка!":<></>}
+            <div className='searchpage__results__summary'>
+                <h2>Общая сводка</h2>
+                <h4>Найдено {(summaryIsLoading||documentsIsLoading)? "... ":summaryData.allcount} вариантов</h4>
+            </div>
+            <div className="searchpage__results__carousel">
+                <img
+                    className={`searchpage__results__carousel__leftbtn searchpage__results__carousel__btn__disable`}
+                    src={btnprev} 
+                />
+                <div className="searchpage__results__slider">
+                    <div className="searchpage__results__slider__info">
+                        <p>Период</p>
+                        <p>Всего</p>
+                        <p>Риски</p>
+                    </div>
+                    {(summaryIsLoading||documentsIsLoading)?<></>:
+                    <div className="searchpage__results__slider__slides">
+                        <SummarySlider></SummarySlider>
+                    </div>}
+                        
+                </div>
+                <img 
+                    className={`searchpage__results__carousel__rightbtn searchpage__results__carousel__btn__disable`}
+                    src={btnprev}>  
+                </img>
+            </div>
             <>
-                {documents?
-                    documents.map((item, index)=>{
-                        return  <Document key={item.id} data={item} index={index+1}></Document>
-                    })
-                :
-                    <></>
-                }
+                
+                    {documents?
+                        documents.map((item, index)=>{
+                            return  <Document key={item.id} data={item} index={index+1}></Document>
+                        })
+                    :
+                        <></>
+                    }
                 
                 {documents.length==0?
                     <>
@@ -204,6 +324,7 @@ function SearchResults(props) {
                 }
                 
             </>
+            <button onClick={goSearch}>Вернуться</button>   
             
         </>
     );
