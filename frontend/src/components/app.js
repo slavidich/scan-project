@@ -21,7 +21,6 @@ function App() {
             if (new Date() > new Date(localStorage.getItem('expire'))){
                 localStorage.removeItem('accessToken')
                 dispath({type:'LOGOUT'})
-                console.log('Пользователь деавторизован')
             }
         }
     }

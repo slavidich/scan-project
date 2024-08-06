@@ -8,12 +8,14 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import btnprev from '../img/button_prev.png'
-import {SampleArrow} from '../components/mainSlider.jsx'
+import loadingSpinner from '../img/5.gif'
+
 
 function SearchResults(props) {
     const [summaryData, setSummaryData] = useState(0);
     const [summaryIsLoading, setSummaryIsLoading] = useState(true);
     const sliderRef = React.useRef(null);
+    const [deviceSize, setDeviceSize] = useState(window.innerWidth);
 
     const [error, setError] = useState(null)
 
@@ -67,7 +69,6 @@ function SearchResults(props) {
                         'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
                     }
                 });
-                console.log(resp)
                 const combinedData = Object.values(resp.data.data.reduce((dict, current)=>{
                     current.data.forEach(item=>{
                             const date = new Date(item.date);
@@ -97,13 +98,11 @@ function SearchResults(props) {
                         allcount: sum,
                         dates: combinedData
                     };
-                    console.log(newSummaryData);
                     return newSummaryData;
                 });
                 setSummaryIsLoading(false)
 
             } catch (error) {
-                console.log(error)
                 setError(error.response.status)
             }
         };
@@ -125,7 +124,6 @@ function SearchResults(props) {
                 setShowedDocuments((prev)=>prev+loadMoreCount)
             }
             catch (error){
-                console.log('ОШИБКА 2 ',error)
                 setError(500)
             }
         }
@@ -154,8 +152,15 @@ function SearchResults(props) {
                 resp.data.forEach((item)=>{
                     newDocuments.push({
                         id: item.ok.id,
-                        attributes: item.ok.attributes,
-                        title: item.ok.title.text
+                        date: moment(item.ok.issueDate).format('DD.MM.YYYY'),
+                        url: item.ok.url,
+                        urlTitle: item.ok.source.name,
+                        isTechNews: item.ok.attributes.isTechNews,
+                        isAnnouncement: item.ok.attributes.isAnnouncement,
+                        isDigest: item.ok.attributes.isDigest,
+                        wordCount: item.ok.attributes.wordCount,
+                        title: item.ok.title.text, 
+                        text: item.ok.content.markup.slice(0,800)
                     })
                 })
                 
@@ -171,21 +176,36 @@ function SearchResults(props) {
         }
         showNext10Posts()
     }, [showedDocuments])
+    useEffect(() => {
+        const handleResize = () => setDeviceSize(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     const goSearch=()=>{
         props.closeResults()
     }
     const handleLoadMore = ()=>{
         setShowedDocuments((prev)=>prev+loadMoreCount)
     }
-    const getSlidesToShow = () => {
-        const width = window.innerWidth;
+    const getSlidesToShow = (width) => {
         if (width >= 1300) return 8;
         if (width >= 1100) return 7;
         if (width >= 900) return 6;
         if (width >= 700) return 5;
-        return 4;
+        if (width >= 680) return 4;
+        return 1;
     };
     const updateButtons = (next) => {
+        console.log(summaryData.dates)
+        console.log(deviceSize)
+        console.log(summaryData.dates.length<getSlidesToShow(deviceSize))
+        if (summaryData.dates.length<getSlidesToShow(deviceSize)){
+            document.querySelector('.searchpage__results__carousel__leftbtn').classList.add('searchpage__results__carousel__btn__disable')
+            document.querySelector('.searchpage__results__carousel__leftbtn').removeEventListener('click',handlePrev)
+            document.querySelector('.searchpage__results__carousel__rightbtn').classList.add('searchpage__results__carousel__btn__disable')
+            document.querySelector('.searchpage__results__carousel__rightbtn').removeEventListener('click',handelNext)
+            return
+        }
         const slidesToShow = getSlidesToShow();
         if (next===0){
             document.querySelector('.searchpage__results__carousel__leftbtn').classList.add('searchpage__results__carousel__btn__disable')
@@ -213,7 +233,7 @@ function SearchResults(props) {
         slidesToScroll: 1,
         arrows: false,
         autoplay: false,
-        touchThreshold: 100,
+        touchThreshold: 15,
         beforeChange: (current, next) => updateButtons(next),
         onInit: ()=>updateButtons(0),
         responsive:[
@@ -234,16 +254,24 @@ function SearchResults(props) {
                 settings:{
                     slidesToShow: 5
                 }
-            },{
+            },
+            {
                 breakpoint:700,
                 settings:{
                     slidesToShow: 4
+                }
+            },
+            {
+                breakpoint:680,
+                settings:{
+                    slidesToShow: 1,
+                    touchThreshold: 5,
                 }
             }
         ]
     };
     const SummarySlider = ()=>{
-        return (<Slider ref={sliderRef} {...settings}>
+        return (<Slider ref={sliderRef} {...settings} swipe={summaryData.dates.length>getSlidesToShow(deviceSize)?true:false}>
             
             {summaryData.dates.map((item, index)=>{
                             return(<div className="searchpage__results__slider__slide" key={index}>
@@ -274,7 +302,6 @@ function SearchResults(props) {
                 </div>
                 <SvgSearchResults/>
             </div>
-            {error==500?"Ошибка!":<></>}
             <div className='searchpage__results__summary'>
                 <h2>Общая сводка</h2>
                 <h4>Найдено {(summaryIsLoading||documentsIsLoading)? "... ":summaryData.allcount} вариантов</h4>
@@ -290,10 +317,23 @@ function SearchResults(props) {
                         <p>Всего</p>
                         <p>Риски</p>
                     </div>
-                    {(summaryIsLoading||documentsIsLoading)?<></>:
-                    <div className="searchpage__results__slider__slides">
-                        <SummarySlider></SummarySlider>
-                    </div>}
+                    
+                    <div className="searchpage__results__slider__slides">{error?
+                        <div className="searchpage__results__loading__slider">
+                            <span>ERROR {error}</span>
+                        </div>
+                        :
+                        <>
+                            {(summaryIsLoading||documentsIsLoading)?
+                                <div className="searchpage__results__loading__slider">
+                                    <img src={loadingSpinner}/>
+                                    <p>Загружаем данные</p>
+                                </div>
+                            :
+                                <SummarySlider></SummarySlider>}
+                        </>}
+                        
+                    </div>
                         
                 </div>
                 <img 
@@ -304,9 +344,11 @@ function SearchResults(props) {
             <>
                 
                     {documents?
-                        documents.map((item, index)=>{
+                    <div className="searchpage__results__docsgrid">
+                        {documents.map((item, index)=>{
                             return  <Document key={item.id} data={item} index={index+1}></Document>
-                        })
+                        })}
+                    </div>
                     :
                         <></>
                     }
@@ -317,15 +359,15 @@ function SearchResults(props) {
                     </>
                 :
                     <>{canLoadMore?
-                        <button onClick={handleLoadMore} disabled={documentsIsLoading}>{documentsIsLoading?"Загрузка...":"Загрузить еще документы"}</button>
+                        <button className={`searchpage__results__loadmorebtn ${documentsIsLoading?"searchpage__results__loadmorebtn__disable":""}`} onClick={documentsIsLoading?undefined:handleLoadMore} disabled={documentsIsLoading}>{documentsIsLoading?"Загрузка...":"Показать больше"}</button>
                         :
-                        <p>Больше нечего загружать!</p>
+                        <></>
                     }</>
                 }
                 
             </>
-            <button onClick={goSearch}>Вернуться</button>   
-            
+            {//<button display="none" disabled="true" onClick={goSearch}>Вернуться</button>
+}
         </>
     );
 }

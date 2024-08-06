@@ -13,7 +13,7 @@ function searchPage(){
         inn: '86 020 605 55', //
         tone: 'any',
         documentCount: '500', //
-        startDate: '17.06.2023', //
+        startDate: '17.03.2024', //
         endDate: '17.06.2024', //
         maxCompleteness: true,
         businessContext: true,

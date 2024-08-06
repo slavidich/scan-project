@@ -36,7 +36,6 @@ function header(){
         if (isAuth){
             setBalanceIsLoading(true)
             const getBalance = async ()=>{
-                console.log(localStorage.getItem('accessToken'))
                 try{
                     const resp = await axios.get('https://gateway.scan-interfax.ru/api/v1/account/info', 
                     {
