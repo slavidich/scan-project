@@ -2,10 +2,10 @@ import React from "react";
 import "../styles/app.scss";
 
 import Header from "./header.jsx"
-import Footer from "./footer"
-import MainPage from "./mainPage";
-import LoginPage from "./loginPage"
-import SearchPage from "./searchPage"
+import Footer from "./footer.jsx"
+import MainPage from "./mainPage.jsx";
+import LoginPage from "./loginPage.jsx"
+import SearchPage from "./searchPage.jsx"
 
 import {Routes, Route, useNavigate, useLocation} from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
