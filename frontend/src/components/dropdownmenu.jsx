@@ -14,7 +14,7 @@ const DropdownMenu = ({ isOpen, onClose, logout }) => {
       isOpen ? (
         <div className="dropdown-menu">
           <div className="header ">
-            <div class="header__logo">
+            <div class="footer__logo header__logo dropdownmenu__header">
               <img  src={logo} alt="logo"/>
             </div>
             <button className="close-button menu-button " onClick={onClose}>✖</button>

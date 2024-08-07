@@ -10,8 +10,8 @@ function loginPage(){
     const navigate = useNavigate()
     const isAuth = useSelector((state) => state.auth.isAuth);
     const dispatch = useDispatch()
-    const [username, setUsername] = useState('sf_student5'); //sf_student5
-    const [password, setPassword] = useState('LuwAwJf'); //LuwAwJf
+    const [username, setUsername] = useState(''); //sf_student5
+    const [password, setPassword] = useState(''); //LuwAwJf
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false)
     const [loginLoading, setLoginLoading] = useState(false)

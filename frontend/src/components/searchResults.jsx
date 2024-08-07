@@ -196,10 +196,7 @@ function SearchResults(props) {
         return 1;
     };
     const updateButtons = (next) => {
-        console.log(summaryData.dates)
-        console.log(deviceSize)
-        console.log(summaryData.dates.length<getSlidesToShow(deviceSize))
-        if (summaryData.dates.length<getSlidesToShow(deviceSize)){
+        if (summaryData.dates.length<=getSlidesToShow(deviceSize)){
             document.querySelector('.searchpage__results__carousel__leftbtn').classList.add('searchpage__results__carousel__btn__disable')
             document.querySelector('.searchpage__results__carousel__leftbtn').removeEventListener('click',handlePrev)
             document.querySelector('.searchpage__results__carousel__rightbtn').classList.add('searchpage__results__carousel__btn__disable')

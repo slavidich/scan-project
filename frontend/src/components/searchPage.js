@@ -10,11 +10,11 @@ function searchPage(){
     const isAuth = useSelector((state) => state.auth.isAuth);
     const [searchGo, setsearchGo] = useState(null);
     const [formData, setFormData] = useState({
-        inn: '86 020 605 55', //
+        inn: '', // 86 020 605 55
         tone: 'any',
-        documentCount: '500', //
-        startDate: '17.03.2024', //
-        endDate: '17.06.2024', //
+        documentCount: '', // 500
+        startDate: '', // 17.03.2024
+        endDate: '', // 17.06.2024
         maxCompleteness: true,
         businessContext: true,
         mainRole: true,
